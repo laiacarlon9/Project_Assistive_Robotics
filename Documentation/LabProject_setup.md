@@ -1,4 +1,4 @@
-# **Social and Assistive Robotics Project setup**
+# **Social and Assistive Robotics Project setup 1**
 
 The objectives of this section are:
 - Setup the project in student's github
