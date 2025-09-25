@@ -9,8 +9,8 @@ from robodk.robolink import *
 from robodk.robomath import *
 
 # Load RoboDK project from relative path
-relative_path = "src/roboDK/Assistive_UR5e.rdk"
-absolute_path = os.path.abspath(relative_path)
+relative_path = "src/roboDK/Assistive_UR5e.rdk"  #demanar a Laia Raja sinó o en Marc
+absolute_path = os.path.abspath(relative_path)  #hem de fer que coincideixi amb el path
 RDK = Robolink()
 RDK.AddFile(absolute_path)
 
@@ -39,7 +39,9 @@ timel = 4
 
 # URScript commands
 set_tcp = "set_tcp(p[0.000000, 0.000000, 0.050000, 0.000000, 0.000000, 0.000000])"
-movej_init = f"movej([-1.009423, -1.141297, -1.870417, 3.011723, -1.009423, 0.000000],1.20000,0.75000,{timel},0.0000)"
+#movej_init = f"movej([-1.009423, -1.141297, -1.870417, 3.011723, -1.009423, 0.000000],1.20000,0.75000,{timel},0.0000)"
+j1, j2, j3, j4, j5, j6 = list(np.radians(Target.Joints()))
+movej_Target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timel},{blend_r})"  #hem canviat el time1 perque no sabiem quin haviem de posar 
 movel_app_shake = f"movel([-2.268404, -1.482966, -2.153143, -2.647089, -2.268404, 0.000000],{accel_mss},{speed_ms},{timel},0.000)"
 movel_shake = f"movel([-2.268404, -1.663850, -2.294637, -2.324691, -2.268404, 0.000000],{accel_mss},{speed_ms},{timel/2},0.000)"
 movel_app_give5 = f"movel([-2.280779, -1.556743, -2.129529, 5.257071, -1.570796, 2.280779],{accel_mss},{speed_ms},{timel},0.000)"
@@ -60,13 +62,7 @@ def send_ur_script(command):
     robot_socket.send((command + "\n").encode())
 
 # Wait for robot response
-def receive_response(t):
-    try:
-        print("Waiting time:", t)
-        time.sleep(t)
-    except socket.error as e:
-        print(f"Error receiving data: {e}")
-        exit(1)
+    time.sleep(3)
 
 # Movements
 def Init():
