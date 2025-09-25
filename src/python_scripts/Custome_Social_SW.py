@@ -31,7 +31,7 @@ robot.setSpeed(20)
 # Move to initial position
 def move_to_init():
     print("Init")
-    robot.MoveL(Init_target, True)
+    robot.MoveJ(Init_target, True)
     print("Init_target REACHED")
 
 # Perform handshake sequence
