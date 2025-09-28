@@ -20,6 +20,8 @@ tool = RDK.Item("Hand")
 
 # Targets from your RoboDK project
 Init_target = RDK.Item("Init")
+Hola1_target = RDK.Item("HOLA 1")
+Hola2_target = RDK.Item("HOLA 2")
 Posar_ma_target = RDK.Item("posar ma")
 Acariciar1_target = RDK.Item("acariciar 1")
 Acariciar2_target = RDK.Item("acariciar 2")
@@ -34,6 +36,14 @@ def move_to_init():
     print("Init")
     robot.MoveL(Init_target, True)
     print("Init_target REACHED")
+
+# Perform HOLA gesture (move between HOLA 1 and HOLA 2)
+def hola():
+    print("Fent HOLA")
+    for i in range(3):  # repetir 3 vegades
+        robot.MoveL(Hola1_target, True)
+        robot.MoveL(Hola2_target, True)
+    print("HOLA FINISHED")
 
 # Move to "posar ma"
 def posar_ma():
@@ -52,6 +62,7 @@ def acariciar():
 # Main sequence
 def main():
     move_to_init()
+    hola()          
     posar_ma()
     acariciar()
     move_to_init()
@@ -77,3 +88,4 @@ def confirm_close():
 if __name__ == "__main__":
     main()
     #confirm_close()
+    
