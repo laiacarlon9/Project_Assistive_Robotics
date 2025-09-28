@@ -57,6 +57,7 @@ def posar_ma():
     print("Posant la mà")
     robot.MoveL(Posar_ma_target, True)
     print("Mà posada")
+    time.sleep(4)  # afegeix una pausa de 5 segons
 
 # Perform acariciar sequence
 def acariciar():
