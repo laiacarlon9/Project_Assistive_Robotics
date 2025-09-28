@@ -17,11 +17,12 @@ RDK.AddFile(absolute_path)
 robot = RDK.Item("UR5e")
 base = RDK.Item("UR5e Base")
 tool = RDK.Item("Hand")
+
+# Targets from your RoboDK project
 Init_target = RDK.Item("Init")
-App_shake_target = RDK.Item("App_shake")
-Shake_target = RDK.Item("Shake")
-App_give5_target = RDK.Item("App_give5")
-Give5_target = RDK.Item("Give5")
+Posar_ma_target = RDK.Item("posar ma")
+Acariciar1_target = RDK.Item("acariciar 1")
+Acariciar2_target = RDK.Item("acariciar 2")
 
 # Set robot frame, tool and speed
 robot.setPoseFrame(base)
@@ -31,30 +32,28 @@ robot.setSpeed(20)
 # Move to initial position
 def move_to_init():
     print("Init")
-    robot.MoveJ(Init_target, True)
+    robot.MoveL(Init_target, True)
     print("Init_target REACHED")
 
-# Perform handshake sequence
-def hand_shake():
-    print("Hand Shake")
-    robot.MoveL(App_shake_target, True)
-    robot.MoveL(Shake_target, True)
-    robot.MoveL(App_shake_target, True)
-    print("Hand Shake FINISHED")
+# Move to "posar ma"
+def posar_ma():
+    print("Posant la mà")
+    robot.MoveL(Posar_ma_target, True)
+    print("Mà posada")
 
-# Perform "Give me 5" sequence
-def give_me_5():
-    print("Give me 5!")
-    robot.MoveL(App_give5_target, True)
-    robot.MoveL(Give5_target, True)
-    robot.MoveL(App_give5_target, True)
-    print("Give me 5! FINISHED")
+# Perform acariciar sequence
+def acariciar():
+    print("Acariciant")
+    for i in range(3):  # repetir 3 vegades
+        robot.MoveL(Acariciar1_target, True)
+        robot.MoveL(Acariciar2_target, True)
+    print("Acariciar FINISHED")
 
 # Main sequence
 def main():
     move_to_init()
-    hand_shake()
-    give_me_5()
+    posar_ma()
+    acariciar()
     move_to_init()
 
 # Confirmation dialog to close RoboDK
