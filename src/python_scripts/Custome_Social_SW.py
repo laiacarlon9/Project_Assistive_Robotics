@@ -37,12 +37,19 @@ def move_to_init():
     robot.MoveL(Init_target, True)
     print("Init_target REACHED")
 
-# Perform HOLA gesture (move between HOLA 1 and HOLA 2)
+# Perform HOLA gesture
 def hola():
     print("Fent HOLA")
-    for i in range(3):  # repetir 3 vegades
-        robot.MoveL(Hola1_target, True)
+    robot.setSpeed(20)  
+    robot.MoveL(Hola1_target, True)
+    robot.setSpeed(5)  
+    for i in range(2):
         robot.MoveL(Hola2_target, True)
+        time.sleep(0.5)
+        robot.MoveL(Hola1_target, True)
+        time.sleep(0.5)
+    robot.MoveL(Hola2_target, True)
+    robot.setSpeed(20)  
     print("HOLA FINISHED")
 
 # Move to "posar ma"
@@ -88,4 +95,4 @@ def confirm_close():
 if __name__ == "__main__":
     main()
     #confirm_close()
-    
+
