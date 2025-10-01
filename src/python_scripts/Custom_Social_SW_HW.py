@@ -18,10 +18,11 @@ robot = RDK.Item("UR5e")
 base = RDK.Item("UR5e Base")
 tool = RDK.Item('Hand')
 Init_target = RDK.Item('Init')
-App_shake_target = RDK.Item('App_shake')
-Shake_target = RDK.Item('Shake')
-App_give5_target = RDK.Item('App_give5')
-Give5_target = RDK.Item('Give5')
+Hola1_target = RDK.Item("HOLA 1")
+Hola2_target = RDK.Item("HOLA 2")
+Posar_ma_target = RDK.Item("posar ma")
+Acariciar1_target = RDK.Item("acariciar 1")
+Acariciar2_target = RDK.Item("acariciar 2")
 
 # Set robot frame, tool and speed
 robot.setPoseFrame(base)
@@ -50,23 +51,34 @@ def move_to_init():
     robot.MoveL(Init_target, True)
     print("Init_target REACHED")
 
-def hand_shake():
-    print("Hand Shake")
-    robot.setSpeed(50)
-    robot.MoveL(App_shake_target, True)
-    robot.setSpeed(100)
-    robot.MoveL(Shake_target, True)
-    robot.MoveL(App_shake_target, True)
-    print("Hand Shake FINISHED")
+def hola():
+    print("Fent HOLA")
+    robot.setSpeed(20)  
+    robot.MoveL(Hola1_target, True)
+    robot.setSpeed(5)  
+    for i in range(2):
+        robot.MoveL(Hola2_target, True)
+        time.sleep(0.5)
+        robot.MoveL(Hola1_target, True)
+        time.sleep(0.5)
+    robot.MoveL(Hola2_target, True)
+    robot.setSpeed(20)  
+    print("HOLA FINISHED")
 
-def give_me_5():
-    print("Give me 5!")
-    robot.setSpeed(50)
-    robot.MoveL(App_give5_target, True)
-    robot.setSpeed(100)
-    robot.MoveL(Give5_target, True)
-    robot.MoveL(App_give5_target, True)
-    print("Give me 5! FINISHED")
+def posar_ma():
+    print("Posant la mà")
+    robot.setSpeed(10)
+    robot.MoveL(Posar_ma_target, True)
+    print("Mà posada")
+    time.sleep(4)
+
+def acariciar():
+    print("Acariciant")
+    robot.setSpeed(5)
+    for i in range(3):
+        robot.MoveL(Acariciar1_target, True)
+        robot.MoveL(Acariciar2_target, True)
+    print("Acariciar FINISHED")
 
 # Confirmation dialog to close RoboDK
 def confirm_close():
@@ -89,8 +101,10 @@ def confirm_close():
 def main():
     robot_online(False)  # True for real robot, False for simulation
     move_to_init()
-    hand_shake()
-    give_me_5()
+    hola()          
+    posar_ma()
+    acariciar()
+    move_to_init()
 
 # Run main and handle closing
 if __name__ == "__main__":
