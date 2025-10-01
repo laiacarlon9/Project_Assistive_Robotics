@@ -39,15 +39,28 @@ blend_r = 0.0
 timej = 6
 timel = 4
 
+
+
 # URScript commands
 set_tcp = "set_tcp(p[0.000000, 0.000000, 0.050000, 0.000000, 0.000000, 0.000000])"
-#movej_init = f"movej([-1.009423, -1.141297, -1.870417, 3.011723, -1.009423, 0.000000],1.20000,0.75000,{timel},0.0000)"
-j1, j2, j3, j4, j5, j6 = list(np.radians(Target.Joints()))
-movej_Target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timel},{blend_r})"  #hem canviat el time1 perque no sabiem quin haviem de posar 
-movel_app_shake = f"movel([-2.268404, -1.482966, -2.153143, -2.647089, -2.268404, 0.000000],{accel_mss},{speed_ms},{timel},0.000)"
-movel_shake = f"movel([-2.268404, -1.663850, -2.294637, -2.324691, -2.268404, 0.000000],{accel_mss},{speed_ms},{timel/2},0.000)"
-movel_app_give5 = f"movel([-2.280779, -1.556743, -2.129529, 5.257071, -1.570796, 2.280779],{accel_mss},{speed_ms},{timel},0.000)"
-movel_give5 = f"movel([-2.195869, -1.642206, -2.040971, 5.253965, -1.570796, 2.195869],{accel_mss},{speed_ms},{timel/2},0.000)"
+
+j1, j2, j3, j4, j5, j6 = list(np.radians(Init_target.Joints()))
+movej_Init_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"  #hem canviat el time1 perque no sabiem quin haviem de posar 
+
+X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Hola1_target.Pose())
+movel_Hola1_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+
+X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Hola2_target.Pose())
+movel_Hola2_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+
+X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Posar_ma_target.Pose())
+movel_Posar_ma_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+
+X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Acariciar1_target.Pose())
+movel_Acariciar1_Target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+
+X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Acariciar2_target.Pose())
+movel_Acariciar2_Target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
 
 # Check robot connection
 def check_robot_port(ip, port):
@@ -63,6 +76,9 @@ def check_robot_port(ip, port):
 def send_ur_script(command):
     robot_socket.send((command + "\n").encode())
 
+def receive_response(t):
+    robot
+
 # Wait for robot response
     time.sleep(3)
 
@@ -75,47 +91,76 @@ def Init():
         print("Init REAL UR5e")
         send_ur_script(set_tcp)
         receive_response(1)
-        send_ur_script(movej_init)
+        send_ur_script(movej_Init_target)
         receive_response(timej)
     else:
         print("UR5e not connected. Simulation only.")
 
-def Hand_shake():
-    print("Hand Shake")
-    robot.setSpeed(20)
-    robot.MoveL(App_shake_target, True)
-    robot.setSpeed(100)
-    robot.MoveL(Shake_target, True)
-    robot.MoveL(App_shake_target, True)
-    print("Hand Shake FINISHED")
+def hola():
+    print("Fent HOLA")
+    robot.setSpeed(20)  
+    robot.MoveL(Hola1_target, True)
+    robot.setSpeed(5)  
+    for i in range(2):
+        robot.MoveL(Hola2_target, True)
+        time.sleep(0.5)
+        robot.MoveL(Hola1_target, True)
+        time.sleep(0.5)
+    robot.MoveL(Hola2_target, True)
+    robot.setSpeed(20)  
+    print("HOLA FINISHED")
     if robot_is_connected:
-        print("App_shake REAL UR5e")
+        print("Hola REAL UR5e")
         send_ur_script(set_tcp)
         receive_response(1)
-        send_ur_script(movel_app_shake)
+        send_ur_script(movel_Hola1_target)
         receive_response(timel)
-        send_ur_script(movel_shake)
+        send_ur_script(movel_Hola2_target)
         receive_response(timel)
-        send_ur_script(movel_app_shake)
+        send_ur_script(movel_Hola1_target)
+        receive_response(timel)
+        send_ur_script(movel_Hola2_target)
+        receive_response(timel)
+        send_ur_script(movel_Hola1_target)
+        receive_response(timel)
+        send_ur_script(movel_Hola2_target)
         receive_response(timel)
 
-def Give_me_5():
-    print("Give me 5!")
-    robot.setSpeed(20)
-    robot.MoveL(App_give5_target, True)
-    robot.setSpeed(100)
-    robot.MoveL(Give5_target, True)
-    robot.MoveL(App_give5_target, True)
-    print("Give me 5! FINISHED")
+def posar_ma():
+    print("Posant la mà")
+    robot.setSpeed(10)
+    robot.MoveL(Posar_ma_target, True)
+    print("Mà posada")
+    time.sleep(4)
     if robot_is_connected:
-        print("Give5 REAL UR5e")
+        print("posar ma REAL UR5e")
         send_ur_script(set_tcp)
         receive_response(1)
-        send_ur_script(movel_app_give5)
+        send_ur_script(movel_Posar_ma_target)
         receive_response(timel)
-        send_ur_script(movel_give5)
+
+def acariciar():
+    print("Acariciant")
+    robot.setSpeed(5)
+    for i in range(3):
+        robot.MoveL(Acariciar1_target, True)
+        robot.MoveL(Acariciar2_target, True)
+    print("Acariciar FINISHED")
+    if robot_is_connected:
+        print("Acariciar REAL UR5e")
+        send_ur_script(set_tcp)
+        receive_response(1)
+        send_ur_script(movel_Acariciar1_Target)
         receive_response(timel)
-        send_ur_script(movel_app_give5)
+        send_ur_script(movel_Acariciar2_Target)
+        receive_response(timel)
+        send_ur_script(movel_Acariciar1_Target)
+        receive_response(timel)
+        send_ur_script(movel_Acariciar2_Target)
+        receive_response(timel)
+        send_ur_script(movel_Acariciar1_Target)
+        receive_response(timel)
+        send_ur_script(movel_Acariciar2_Target)
         receive_response(timel)
 
 # Confirmation dialog to close RoboDK
@@ -140,8 +185,10 @@ def main():
     global robot_is_connected
     robot_is_connected = check_robot_port(ROBOT_IP, ROBOT_PORT)
     Init()
-    Hand_shake()
-    Give_me_5()
+    hola()          
+    posar_ma()
+    acariciar()
+    Init()
     if robot_is_connected:
         robot_socket.close()
 
