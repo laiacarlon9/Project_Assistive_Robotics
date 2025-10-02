@@ -52,22 +52,23 @@ print("Init_target Pose():", Init_target.Pose())
 set_tcp = "set_tcp(p[0.000000, 0.000000, 0.050000, 0.000000, 0.000000, 0.000000])"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Init_target.Joints()).tolist()[0]
-movej_Init_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"  #hem canviat el time1 perque no sabiem quin haviem de posar 
+movej_Init_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
-X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Hola1_target.Pose())
-movel_Hola1_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+j1, j2, j3, j4, j5, j6 = np.radians(Hola1_target.Joints()).tolist()[0]
+movel_Hola1_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
-X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Hola2_target.Pose())
-movel_Hola2_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+j1, j2, j3, j4, j5, j6 = np.radians(Hola2_target.Joints()).tolist()[0]
+movel_Hola2_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
-X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Posar_ma_target.Pose())
-movel_Posar_ma_target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+j1, j2, j3, j4, j5, j6 = np.radians(Posar_ma_target.Joints()).tolist()[0]
+movel_Posar_ma_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
-X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Acariciar1_target.Pose())
-movel_Acariciar1_Target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+j1, j2, j3, j4, j5, j6 = np.radians(Acariciar1_target.Joints()).tolist()[0]
+movel_Acariciar1_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
 
-X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Acariciar2_target.Pose())
-movel_Acariciar2_Target = f"movel(p[{X}, {Y}, {Z}, {Roll}, {Pitch}, {Yaw}], a={accel_mss}, v={speed_ms}, t={timel}, r={blend_r})"
+j1, j2, j3, j4, j5, j6 = np.radians(Acariciar2_target.Joints()).tolist()[0]
+movel_Acariciar2_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
+
 
 # Check robot connection
 def check_robot_port(ip, port):
@@ -161,17 +162,17 @@ def acariciar():
         print("Acariciar REAL UR5e")
         send_ur_script(set_tcp)
         receive_response(1)
-        send_ur_script(movel_Acariciar1_Target)
+        send_ur_script(movel_Acariciar1_target)
         receive_response(timel)
-        send_ur_script(movel_Acariciar2_Target)
+        send_ur_script(movel_Acariciar2_target)
         receive_response(timel)
-        send_ur_script(movel_Acariciar1_Target)
+        send_ur_script(movel_Acariciar1_target)
         receive_response(timel)
-        send_ur_script(movel_Acariciar2_Target)
+        send_ur_script(movel_Acariciar2_target)
         receive_response(timel)
-        send_ur_script(movel_Acariciar1_Target)
+        send_ur_script(movel_Acariciar1_target)
         receive_response(timel)
-        send_ur_script(movel_Acariciar2_Target)
+        send_ur_script(movel_Acariciar2_target)
         receive_response(timel)
 
 # Confirmation dialog to close RoboDK
