@@ -52,22 +52,22 @@ print("Init_target Pose():", Init_target.Pose())
 set_tcp = "set_tcp(p[0.000000, 0.000000, 0.050000, 0.000000, 0.000000, 0.000000])"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Init_target.Joints()).tolist()[0]
-movej_Init_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
+movej_Init_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Hola1_target.Joints()).tolist()[0]
-movel_Hola1_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
+movel_Hola1_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Hola2_target.Joints()).tolist()[0]
-movel_Hola2_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
+movel_Hola2_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Posar_ma_target.Joints()).tolist()[0]
-movel_Posar_ma_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
+movel_Posar_ma_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"
 
 j1, j2, j3, j4, j5, j6 = np.radians(Acariciar1_target.Joints()).tolist()[0]
-movel_Acariciar1_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
+movel_Acariciar1_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
 
 j1, j2, j3, j4, j5, j6 = np.radians(Acariciar2_target.Joints()).tolist()[0]
-movel_Acariciar2_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
+movel_Acariciar2_target = f"movel([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})" 
 
 
 # Check robot connection
