@@ -9,7 +9,7 @@ from robodk.robolink import *
 from robodk.robomath import *
 
 # Load RoboDK project from relative path
-relative_path = "src/roboDK/Assistive_UR5e.rdk"  #demanar a Laia Raja sinó o en Marc
+relative_path = "src/roboDK/Assistive_UR5e.rdk"  
 absolute_path = os.path.abspath(relative_path)  #hem de fer que coincideixi amb el path
 RDK = Robolink()
 RDK.AddFile(absolute_path)
@@ -76,11 +76,14 @@ def check_robot_port(ip, port):
 def send_ur_script(command):
     robot_socket.send((command + "\n").encode())
 
-def receive_response(t):
-    robot
-
 # Wait for robot response
-    time.sleep(3)
+def receive_response(t):
+    try:
+        print("Waiting time:", t)
+        time.sleep(t)
+    except socket.error as e:
+        print(f"Error receiving data: {e}")
+        exit(1)
 
 # Movements
 def Init():
