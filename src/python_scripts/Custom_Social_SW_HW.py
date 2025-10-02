@@ -47,6 +47,7 @@ def robot_online(online):
 
 # Robot movements
 def move_to_init():
+    robot.setSpeed(20)
     print("Init")
     robot.MoveL(Init_target, True)
     print("Init_target REACHED")
@@ -74,7 +75,7 @@ def posar_ma():
 
 def acariciar():
     print("Acariciant")
-    robot.setSpeed(5)
+    robot.setSpeed(15)
     for i in range(3):
         robot.MoveL(Acariciar1_target, True)
         robot.MoveL(Acariciar2_target, True)
