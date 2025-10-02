@@ -11,8 +11,12 @@ from robodk.robomath import *
 # Load RoboDK project from relative path
 relative_path = "src/roboDK/Assistive_UR5e.rdk"  
 absolute_path = os.path.abspath(relative_path)  #hem de fer que coincideixi amb el path
+print("Opening roboDK")
 RDK = Robolink()
+time.sleep(3)
+print("Opening project")
 RDK.AddFile(absolute_path)
+time.sleep(1)
 
 # Robot setup
 robot = RDK.Item("UR5e")
@@ -40,11 +44,14 @@ timej = 6
 timel = 4
 
 
+print("Init_target Type:", Init_target.Type())
+print("Init_target Joints():", Init_target.Joints())
+print("Init_target Pose():", Init_target.Pose())
 
 # URScript commands
 set_tcp = "set_tcp(p[0.000000, 0.000000, 0.050000, 0.000000, 0.000000, 0.000000])"
 
-j1, j2, j3, j4, j5, j6 = list(np.radians(Init_target.Joints()))
+j1, j2, j3, j4, j5, j6 = np.radians(Init_target.Joints()).tolist()[0]
 movej_Init_target = f"movej([{j1},{j2}, {j3}, {j4}, {j5}, {j6}],{accel_mss},{speed_ms},{timej},{blend_r})"  #hem canviat el time1 perque no sabiem quin haviem de posar 
 
 X, Y, Z, Roll, Pitch, Yaw = Pose_2_TxyzRxyz(Hola1_target.Pose())
@@ -88,6 +95,7 @@ def receive_response(t):
 # Movements
 def Init():
     print("Init")
+    robot.setSpeed(20)
     robot.MoveL(Init_target, True)
     print("Init_target REACHED")
     if robot_is_connected:
@@ -144,7 +152,7 @@ def posar_ma():
 
 def acariciar():
     print("Acariciant")
-    robot.setSpeed(5)
+    robot.setSpeed(15)
     for i in range(3):
         robot.MoveL(Acariciar1_target, True)
         robot.MoveL(Acariciar2_target, True)
