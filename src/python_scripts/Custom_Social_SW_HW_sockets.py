@@ -13,10 +13,10 @@ relative_path = "src/roboDK/Assistive_UR5e.rdk"
 absolute_path = os.path.abspath(relative_path)  #hem de fer que coincideixi amb el path
 print("Opening roboDK")
 RDK = Robolink()
-time.sleep(3)
+#time.sleep(3)
 print("Opening project")
-RDK.AddFile(absolute_path)
-time.sleep(1)
+#RDK.AddFile(absolute_path)
+#time.sleep(1)
 
 # Robot setup
 robot = RDK.Item("UR5e")
@@ -198,7 +198,7 @@ def main():
     robot_is_connected = check_robot_port(ROBOT_IP, ROBOT_PORT)
     Init()
     hola()          
-    posar_ma()
+    #posar_ma()
     acariciar()
     Init()
     if robot_is_connected:
